@@ -1,0 +1,25 @@
+@Library('mylibrary')_
+node('built-in')
+{
+    stage('ContDownload-Master')
+    {
+        cicd.newGit("maven")
+    }
+    stage('ContBuild-Master')
+    {
+        cicd.newMaven()
+    }
+    stage('ContDeploy-Master')
+    {
+        cicd.newDeploy("ScriptedPipelinewithSharedLibraries","172.31.92.129","testapp")
+    }
+    stage('ContTesting-Master')
+    {
+        cicd.newGit("FunctionalTesting")
+    }
+    stage('ContDelivery-Master')
+    {
+        cicd.newDeploy("ScriptedPipelinewithSharedLibraries","172.31.87.120","prodapp")
+    }
+    
+}
